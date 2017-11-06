@@ -19,6 +19,7 @@ class App extends Component {
           <Root>
             <NavBar />
             <Switch>
+              <Route exact path="/" component={ListUsers}/>
               <Route path="/list" component={ListUsers}>
               </Route>
               <Route path="/add" component={AddUser}>
