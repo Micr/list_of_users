@@ -1,4 +1,4 @@
-import { FILTER_USERS } from '../actions';
+import { FILTER_USERS, SUBMIT_USER } from '../actions';
 const initialState = {
   users: [{
     "id": 1,
@@ -71,12 +71,13 @@ const initialState = {
     "gender": "Female",
     "ip_address": "152.118.57.29"
   }],
+  search: '',
 };
 
 initialState.filteredUsers = initialState.users;
 
 function filterUsers(users, text = '') {
-  return users.filter(user => user.first_name.indexOf(text) !== -1)
+  return users.filter(user => user.first_name.toLowerCase().indexOf(text.toLowerCase()) !== -1)
 };
 
 const reducer = (state = initialState, action) => {
@@ -85,7 +86,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredUsers: filterUsers(state.users, action.text),
+        search: action.text,
       };
+    case SUBMIT_USER:
+      return {
+        ...state,
+        users: state.users.concat(action.user),
+        filteredUsers: filterUsers(state.users.concat(action.user), state.search),
+      }
     default:
       return state;
   }

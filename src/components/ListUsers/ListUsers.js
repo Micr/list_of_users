@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { filterUsers, FILTER_USERS } from '../../actions';
+import { filterUsers } from '../../actions';
 import './style.css';
 
 class ListUsers extends Component {
@@ -16,7 +15,7 @@ class ListUsers extends Component {
     return (
       <div className="listUsers">
         <div className="searchContainer">
-          <input type="text" onChange={this.handleChange} />
+          <input type="text" onChange={this.handleChange} value={this.props.search}/>
         </div>
         <ul className="listContainer">
           {this.props.filteredUsers.map(user => <li key={user.id} className="user">
